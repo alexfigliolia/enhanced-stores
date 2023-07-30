@@ -1,7 +1,7 @@
 {
-  "name": "@figliolia/enhanced-writables",
+  "name": "@figliolia/enhanced-stores",
   "version": "1.0.0",
-  "description": "An enhancer library for svelte writables",
+  "description": "An enhancer library for svelte stores that supports middleware",
   "main": "dist/cjs/index.js",
   "module": "dist/mjs/index.js",
   "exports": {
@@ -23,16 +23,21 @@
   },
   "keywords": [
     "svelte",
+    "sveltekit",
     "state",
-    "management",
-    "state",
+    "stores",
+    "state management",
     "writable",
-    "derived"
+    "derived",
+    "readable",
+    "subscription",
+    "middleware",
+    "enhancer"
   ],
-  "homepage": "https://github.com/alexfigliolia/enhanced-writables#readme",
+  "homepage": "https://github.com/alexfigliolia/enhanced-stores#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/alexfigliolia/enhanced-writables.git"
+    "url": "git+https://github.com/alexfigliolia/enhanced-stores.git"
   },
   "author": "Alex Figliolia",
   "license": "MIT",

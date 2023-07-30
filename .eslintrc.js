@@ -4,7 +4,7 @@ module.exports = {
 		browser: true,
 		es2021: true
 	},
-	ignorePatterns: ["node_modules", ".eslintrc.js", "dist", "jest.config.js", "babel.config.js", "coverage"],
+	ignorePatterns: ["node_modules", ".eslintrc.js", "dist", "jest.config.js", "coverage"],
 	extends: [
 		"eslint:recommended",
 		"plugin:@typescript-eslint/recommended",

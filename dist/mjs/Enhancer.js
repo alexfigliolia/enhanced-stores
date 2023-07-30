@@ -1,4 +1,11 @@
 import { Middleware } from "./Middleware";
+/**
+ * ### Enhancer
+ *
+ * A base class for all enhanced stores in svelte. By extending
+ * the `Enhancer`, your states gain access to an event emitter
+ * that communicates with each registered middleware
+ */
 export class Enhancer {
     name;
     middleware = [];

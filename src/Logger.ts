@@ -1,5 +1,20 @@
 import { Middleware } from "./Middleware";
 
+/**
+ * ### Logger
+ *
+ * A redux-like logger for Svelte Stores
+ *
+ * ```typescript
+ * import { EnhancedWritable, Logger } from "@figliolia/enhanced-stores";
+ *
+ * const writable = new EnhancedWritable("List Items", [1, 2, 3]);
+ * writable.registerMiddleware(new Logger());
+ * ```
+ *
+ * The writable in the example above will log to the console each
+ * state change that occurs.
+ */
 export class Logger<T = any> extends Middleware<T> {
   private previousState: T | null = null;
 
@@ -9,7 +24,7 @@ export class Logger<T = any> extends Middleware<T> {
 
   public override onUpdate(name: string, state: T) {
     console.log(
-      "%cMutation:",
+      "%cUpdate:",
       "color: rgb(187, 186, 186); font-weight: bold",
       name,
       "@",

@@ -2,6 +2,21 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Logger = void 0;
 const Middleware_1 = require("./Middleware");
+/**
+ * ### Logger
+ *
+ * A redux-like logger for Svelte Stores
+ *
+ * ```typescript
+ * import { EnhancedWritable, Logger } from "@figliolia/enhanced-stores";
+ *
+ * const writable = new EnhancedWritable("List Items", [1, 2, 3]);
+ * writable.registerMiddleware(new Logger());
+ * ```
+ *
+ * The writable in the example above will log to the console each
+ * state change that occurs.
+ */
 class Logger extends Middleware_1.Middleware {
     constructor() {
         super(...arguments);
@@ -11,7 +26,7 @@ class Logger extends Middleware_1.Middleware {
         this.previousState = state;
     }
     onUpdate(name, state) {
-        console.log("%cMutation:", "color: rgb(187, 186, 186); font-weight: bold", name, "@", this.time);
+        console.log("%cUpdate:", "color: rgb(187, 186, 186); font-weight: bold", name, "@", this.time);
         console.log("   %cPrevious State", "color: #26ad65; font-weight: bold", this.previousState);
         console.log("   %cNext State    ", "color: rgb(17, 118, 249); font-weight: bold", state);
         this.previousState = null;
