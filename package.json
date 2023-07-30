@@ -1,0 +1,65 @@
+{
+  "name": "@figliolia/enhanced-writables",
+  "version": "1.0.0",
+  "description": "An enhancer library for svelte writables",
+  "main": "dist/cjs/index.js",
+  "module": "dist/mjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/mjs/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
+  "types": "dist/mjs/index.d.ts",
+  "files": [
+    "dist",
+    "src/*"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cli": "yarn build && node dist/stealth/CLI.js",
+    "build": "rm -rf dist && tsc -p tsconfig.mjs.json && tsc -p tsconfig.cjs.json && ./pkg.sh",
+    "lint": "tsc --noemit && eslint ./ --fix"
+  },
+  "keywords": [
+    "svelte",
+    "state",
+    "management",
+    "state",
+    "writable",
+    "derived"
+  ],
+  "homepage": "https://github.com/alexfigliolia/enhanced-writables#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexfigliolia/enhanced-writables.git"
+  },
+  "author": "Alex Figliolia",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.3",
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
+    "eslint": "^8.39.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-import-resolver-typescript": "^3.5.5",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "jest": "^29.6.1",
+    "jest-extended": "^4.0.0",
+    "prettier": "^2.8.8",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "tsc-alias": "^1.8.7",
+    "typescript": "^4.4.2"
+  },
+  "dependencies": {
+    "svelte": "^4.1.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
