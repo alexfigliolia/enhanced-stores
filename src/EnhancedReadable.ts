@@ -1,7 +1,6 @@
 import type { Readable } from "svelte/store";
 import { get, readable } from "svelte/store";
 import { Enhancer } from "./Enhancer";
-import { Middleware } from "./Middleware";
 
 /**
  * ### Enhanced Readable
@@ -41,7 +40,7 @@ export class EnhancedReadable<T> extends Enhancer<T> {
   constructor(name: string, ...params: Parameters<typeof readable<T>>) {
     super(name);
     this.state = readable(...params);
-    this.currentValue = Middleware.clone(get(this.state));
+    this.currentValue = this.emit("onInitialize", get(this.state));
     this.initialize();
   }
 

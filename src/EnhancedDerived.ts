@@ -1,7 +1,6 @@
 import type { Stores, Readable } from "svelte/store";
 import { derived, get } from "svelte/store";
 import { Enhancer } from "./Enhancer";
-import { Middleware } from "./Middleware";
 
 /**
  * ### Enhanced Derived
@@ -47,7 +46,7 @@ export class EnhancedDerived<S extends Stores, T> extends Enhancer<T> {
   constructor(name: string, ...params: Parameters<typeof derived<S, T>>) {
     super(name);
     this.state = derived(...params);
-    this.currentValue = Middleware.clone(get(this.state));
+    this.currentValue = this.emit("onInitialize", get(this.state));
     this.initialize();
   }
 

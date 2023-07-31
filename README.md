@@ -153,6 +153,9 @@ To build your own middleware, simply extend the `Middleware` class provided by t
 import { Middleware } from "@figliolia/enhanced-stores";
 
 class MyMiddleware<T> extends Middleware<T> {
+  public override onInitialize(name: string, state: T) {
+    // Execute logic on initialization of a store
+  }
   public override onBeforeUpdate(name: string, state: T) {
     // Execute logic before updates take place
   }
@@ -201,7 +204,12 @@ import { Middleware } from "@figliolia/enhanced-stores";
 
 // Extend the Base class
 export class Testing<T> extends Middleware<T> {
-  public history: T[] = []
+  public history: T[] = [];
+
+  // Push the initial value to the history array
+  public override onInitialization(name: string, state: T) {
+    this.history.push(state);
+  }
 
   // Push each state update to the history array
   public override onUpdate(name: string, state: T) {

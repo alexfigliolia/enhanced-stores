@@ -42,6 +42,7 @@ export class EnhancedWritable<T> extends Enhancer<T> {
   constructor(name: string, ...params: Parameters<typeof writable<T>>) {
     super(name);
     this.state = writable(...params);
+    this.emit("onInitialize", get(this.state));
   }
 
   public get instance() {

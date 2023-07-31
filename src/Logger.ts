@@ -18,6 +18,27 @@ import { Middleware } from "./Middleware";
 export class Logger<T = any> extends Middleware<T> {
   private previousState: T | null = null;
 
+  public override onInitialize(name: string, state: T) {
+    this.previousState = state;
+    console.log(
+      "%cInitialization:",
+      "color: rgb(187, 186, 186); font-weight: bold",
+      name,
+      "@",
+      this.time
+    );
+    console.log(
+      "   %cPrevious State",
+      "color: #26ad65; font-weight: bold",
+      undefined
+    );
+    console.log(
+      "   %cNext State    ",
+      "color: rgb(17, 118, 249); font-weight: bold",
+      state
+    );
+  }
+
   public override onBeforeUpdate(_: string, state: T) {
     this.previousState = state;
   }

@@ -12,6 +12,10 @@
  * import { Middleware, EnhancedWritable } from "@figliolia/enhanced-stores";
  *
  * class Logger extends Middleware {
+ *   onInitialize(name, state) {
+ *     console.log(`${name} initialized!`, state);
+ *   }
+ *
  *   onBeforeUpdate(name, state) {
  *     console.log(`${name} is about to update!`, state);
  *   }
@@ -30,6 +34,14 @@
  * to update
  */
 export class Middleware<T = any> {
+  /**
+   * On Initialize
+   *
+   * An event emitted when a store initializes.
+   * Receives the name of the store and it's
+   * initial state as parameters
+   */
+  public onInitialize(name: string, state: T) {}
   /**
    * On Update
    *
