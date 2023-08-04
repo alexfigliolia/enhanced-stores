@@ -1,6 +1,7 @@
 import type { Stores, Readable } from "svelte/store";
 import { derived, get } from "svelte/store";
 import { Enhancer } from "./Enhancer";
+import { Middleware } from "./Middleware";
 
 /**
  * ### Enhanced Derived
@@ -40,13 +41,14 @@ import { Enhancer } from "./Enhancer";
  * <div style="height: {$derivedState}px" />
  * ```
  */
-export class EnhancedDerived<S extends Stores, T> extends Enhancer<T> {
-  state: Readable<T>;
+export class EnhancedDerived<S extends Stores, T> extends Enhancer<
+  T,
+  Readable<T>
+> {
   currentValue: T | undefined;
   constructor(name: string, ...params: Parameters<typeof derived<S, T>>) {
-    super(name);
-    this.state = derived(...params);
-    this.currentValue = this.emit("onInitialize", get(this.state));
+    super(name, derived(...params));
+    this.currentValue = Middleware.clone(get(this.state));
     this.initialize();
   }
 
@@ -60,9 +62,10 @@ export class EnhancedDerived<S extends Stores, T> extends Enhancer<T> {
   }
 
   /**
-   * Subscribe to value changes.
-   * @param run subscription callback
-   * @param invalidate cleanup callback
+   * Subscribe
+   *
+   * Invokes the specified callback each time the writable's
+   * value changes
    */
   public subscribe(...params: Parameters<Readable<T>["subscribe"]>) {
     return this.state.subscribe(...params);
@@ -73,7 +76,7 @@ export class EnhancedDerived<S extends Stores, T> extends Enhancer<T> {
    *
    * Registers a subscription to the derived state and
    * emits `onBeforeUpdate` and `onUpdate` events to
-   * registered middlewares
+   * registered middleware
    */
   private initialize() {
     return this.subscribe((v) => {

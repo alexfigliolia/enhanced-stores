@@ -97,7 +97,7 @@ export class EnhancerFactory<T extends Middleware<any>[]> {
    * Registers the factory's middleware on the provided store
    * and returns it
    */
-  private enhance<T extends Enhancer<any>>(enhancer: T) {
+  private enhance<T extends Enhancer<any, any>>(enhancer: T) {
     enhancer.registerMiddleware(...this.middleware);
     return enhancer;
   }

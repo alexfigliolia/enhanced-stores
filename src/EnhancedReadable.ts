@@ -1,6 +1,7 @@
 import type { Readable } from "svelte/store";
 import { get, readable } from "svelte/store";
 import { Enhancer } from "./Enhancer";
+import { Middleware } from "./Middleware";
 
 /**
  * ### Enhanced Readable
@@ -34,13 +35,11 @@ import { Enhancer } from "./Enhancer";
  * <div style="height: {$readableState}px" />
  * ```
  */
-export class EnhancedReadable<T> extends Enhancer<T> {
-  state: Readable<T>;
+export class EnhancedReadable<T> extends Enhancer<T, Readable<T>> {
   private currentValue: T | undefined;
   constructor(name: string, ...params: Parameters<typeof readable<T>>) {
-    super(name);
-    this.state = readable(...params);
-    this.currentValue = this.emit("onInitialize", get(this.state));
+    super(name, readable(...params));
+    this.currentValue = Middleware.clone(get(this.state));
     this.initialize();
   }
 
@@ -54,9 +53,10 @@ export class EnhancedReadable<T> extends Enhancer<T> {
   }
 
   /**
-   * Subscribe to value changes.
-   * @param run subscription callback
-   * @param invalidate cleanup callback
+   * Subscribe
+   *
+   * Invokes the specified callback each time the writable's
+   * value changes
    */
   public subscribe(...params: Parameters<Readable<T>["subscribe"]>) {
     return this.state.subscribe(...params);
@@ -67,7 +67,7 @@ export class EnhancedReadable<T> extends Enhancer<T> {
    *
    * Registers a subscription to the derived state and
    * emits `onBeforeUpdate` and `onUpdate` events to
-   * registered middlewares
+   * registered middleware
    */
   private initialize() {
     return this.subscribe((v) => {

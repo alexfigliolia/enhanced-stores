@@ -232,6 +232,26 @@ export class Testing<T> extends Middleware<T> {
 
 Simply register this middleware on your stores in testing environments and make assertions based on the store's update history
 
+## Factories
+In your application, you may find yourself registering the same middleware to each new store you create. To reduce the amount of boiler plate required to enhance your stores, this library comes with an `EnhancerFactory`.
+
+Enhancer Factories are factories that are constructed with one or more middleware. From your factories, you can spawn, `readable`, `writable`, and `derived` stores with your middleware already registered to them:
+
+```typescript
+import { EnhancerFactory, Logger, Profiler } from "@figliolia/enhanced-stores";
+
+const Factory = new EnhancerFactory(
+  new Logger(), 
+  new Profiler()
+  // ...and so on
+);
+
+const writable = Factory.createWritable(/* enhanced store arguments*/);
+const derived = Factory.createDerived(/* enhanced derived arguments*/);
+const readable = Factory.createReadable(/* enhanced readable arguments*/);
+```
+Each of the `create` methods found on the `Factory` will return an `enhanced` readable, writable, or derived instance with the `Logger` and `Profiler` registered to it.
+
 ## Contributing
 This library was built with the intention of adding some useful mechanisms for extending the behavior of Svelte stores. It's designed to help Svelte Stores reach some feature-parity with popular state management tools that have become prolific in the frontend world.
 
