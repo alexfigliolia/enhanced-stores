@@ -19,7 +19,9 @@
 		"noEmit": true,
 	},
 	"include": [
-		"src"
+		"src",
+		"**/*.ts",
+		"**/*.json"
 	],
 	"exclude": [
 		"node_modules",

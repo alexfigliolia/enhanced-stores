@@ -1,16 +1,17 @@
 {
   "name": "@figliolia/enhanced-stores",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An enhancer library for svelte stores that supports middleware",
   "main": "dist/cjs/index.js",
   "module": "dist/mjs/index.js",
+  "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/mjs/index.js",
-      "require": "./dist/cjs/index.js"
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts"
     }
   },
-  "types": "dist/mjs/index.d.ts",
   "files": [
     "dist",
     "src/*"
@@ -18,7 +19,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "cli": "yarn build && node dist/stealth/CLI.js",
-    "build": "rm -rf dist && tsc -p tsconfig.mjs.json && tsc -p tsconfig.cjs.json && ./pkg.sh",
+    "build": "npx ts-packager -e src",
     "lint": "tsc --noemit && eslint ./ --fix"
   },
   "keywords": [
