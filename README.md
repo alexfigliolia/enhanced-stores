@@ -76,7 +76,7 @@ The `EnhancedReadable` is a `readable` instance that exposes a `registerMiddlewa
 ```typescript
 import { EnhancedReadable } from "@figliolia/enhanced-stores";
 
-const time = new EnhancedWritable("Time", Date.now(), set => {
+const time = new EnhancedReadable("Time", Date.now(), set => {
   const interval = setInterval(() => {
     set(Date.now());
   }, 1000);
