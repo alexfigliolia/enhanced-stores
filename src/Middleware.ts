@@ -66,23 +66,34 @@ export class Middleware<T = any> {
    * Returns an immutable copy of any value
    */
   public static clone<T>(state: T): T {
-    if (Array.isArray(state)) {
-      return [...state] as T;
-    }
-    if (state instanceof Set) {
-      return new Set(state) as T;
-    }
-    if (state instanceof Map) {
-      return new Map(state) as T;
-    }
-    if (state && typeof state === "object") {
-      return { ...state } as T;
-    }
-    if (typeof state === "number") {
-      return Number(state) as T;
-    }
-    if (typeof state === "boolean") {
-      return Boolean(state) as T;
+    switch (typeof state) {
+      case "bigint":
+        return BigInt(state) as T;
+      case "number":
+        return Number(state) as T;
+      case "boolean":
+        return Boolean(state) as T;
+      case "string":
+        return String(state) as T;
+      case "undefined":
+        return undefined as T;
+      case "object": {
+        if (Array.isArray(state)) {
+          return [...state] as T;
+        }
+        if (state instanceof Set) {
+          return new Set(state) as T;
+        }
+        if (state instanceof Map) {
+          return new Map(state) as T;
+        }
+        if (state && typeof state === "object") {
+          return { ...state } as T;
+        }
+        if (!state) {
+          return null as T;
+        }
+      }
     }
     return state;
   }
